@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     echo "Connected successfully <br>";    
 }
 
-$sql = "UPDATE room SET VALUE='" . $_GET['VALUE'] . "' WHERE MEANING='R'";
+$sql = "UPDATE home_room SET VALUE='" . $_GET['VALUE'] . "' WHERE MEANING='R'";
 
 if ($conn->query($sql) === TRUE) {
   echo "Record updated successfully<br>";

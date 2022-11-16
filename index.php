@@ -23,7 +23,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM room";
+    $sql = "SELECT * FROM home_room";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

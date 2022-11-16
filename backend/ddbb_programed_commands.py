@@ -5,8 +5,6 @@ from mysql.connector import Error
 import time
 import datetime
 
-import mysql.connector
-
 def ddbb_send_query(query):
     try: 
         mydb = mysql.connector.connect(
