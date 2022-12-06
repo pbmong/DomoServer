@@ -1,0 +1,10 @@
+- Generate token
+Go to "settings" in profile icon and go to "Developer settings/Personal access tokens" and generate this token
+Manage expiration time
+
+- Commands
+cd /var/www/html/Domo
+git status
+git add php/roo_R.php
+git commit -am "ddbb saving for programed commands"
+git push origin master
