@@ -1,4 +1,8 @@
 import urllib3
+import mysql.connector
+from mysql.connector import Error
+import time
+import datetime
 
 url = "https://www.eltiempo.es/sevilla.html"
 
@@ -24,8 +28,33 @@ def get_url_data(url, substring_from, substring_to):
         return
 
 
-ambient_data = {'temperatue': get_url_data(url, 'popup_temp_orig="','popup_temp="'),
-                'rain probability': get_url_data(url, 'popup_prob_rain_orig="','popup_prob_rain_text="')}
+def ddbb_send_query(query):
+    try: 
+        mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "pi",
+        password = "raspberry",
+        database = "DomoServer"
+        )
 
-for data in ambient_data:              
-    print(data + ": " + ambient_data[data])
+        mycursor = mydb.cursor()
+        mycursor.execute(query)
+        mydb.commit()
+        print(mycursor.rowcount, "record(s) affected")
+
+    except:
+        print(f"DDBB error: {Error} ")
+
+ambient_data = {'Temperature': get_url_data(url, 'popup_temp_orig="','popup_temp="'),
+                'Rain probability': get_url_data(url, 'popup_prob_rain_orig="','popup_prob_rain_text="')}
+
+while(True):
+    consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
+    print("---- Data updating ("+consulting_datetime+") ----")
+
+    for data in ambient_data:              
+        print(data + ": " + ambient_data[data])
+        query = F"UPDATE home_external SET VALUE = '{ambient_data[data]}', DATETIME = '{consulting_datetime}' WHERE MEANING = '{data}'"
+        ddbb_send_query(query)
+	
+    time.sleep(300)
