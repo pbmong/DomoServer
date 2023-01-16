@@ -8,4 +8,4 @@ git status
 git add php/roo_R.php
 git commit -am "ddbb saving for programed commands"
 git push origin master
- (insert credentials user: pbmong and pass: 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)
+ (insert credentials user: pbmong and pass: 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)
