@@ -1,13 +1,21 @@
+import sys
 import urllib3
 import mysql.connector
 from mysql.connector import Error
 import time
 import datetime
 
-url = "https://www.google.com/search?q=el+tiempo+sevilla&oq=el+tiempo+sevilla"
-url = "https://www.eltiempo.es/sevilla.html"
 
-def get_url_data(url, substring_from, substring_to):
+dic_data = sys.argv[1]
+url = sys.argv[2]
+find_from = sys.argv[3]
+find_to = sys.argv[4]
+sub_url_form = sys.argv[5]
+sub_url_to = sys.argv[6]
+consulting_delay = int(sys.argv[7])
+
+
+def get_url_data(url, sub_url_form, sub_url_to, substring_from, substring_to):
 
     http = urllib3.PoolManager()
 
@@ -17,18 +25,20 @@ def get_url_data(url, substring_from, substring_to):
     #f.write(response.data.decode("UTF-8"))
     #f.close()
 
-    ind_sub_from = response.data.decode().find('<section class="block_full row_box row_number_2" >')
-    ind_sub_to = response.data.decode().find('<section class="block_full row_box row_number_3" >')
+    ind_sub_from = response.data.decode().find(sub_url_form)
+    ind_sub_to = response.data.decode().find(sub_url_to)
     
-    sub_url = response.data.decode()[ind_sub_from+len(substring_from) : ind_sub_to]
+    sub_url = response.data.decode()[ind_sub_from+len(sub_url_form) : ind_sub_to]
+    # print("sub_url[" + str(ind_sub_from) + ":" + str(ind_sub_to) + "]:")
 
     ind_from = sub_url.find(substring_from)
-    sub_url = sub_url[ind_from+len(substring_from) : len(sub_url)]
+    sub_url = sub_url[ind_from+len(substring_from) : ind_from+len(substring_from) + 200]
+    # print("sub_url["+ str(ind_from) +":-]: "+sub_url)
     ind_to = sub_url.find(substring_to)
 
     try:
         url_dict = sub_url[0 : ind_to]
-        return url_dict[0:url_dict.find('\"')]
+        return url_dict
     
     except:
         print("Failed to parse xml from response ")
@@ -52,15 +62,15 @@ def ddbb_send_query(query):
     except:
         print(f"DDBB error: {Error} ")
 
-ambient_data = {'Temperature': get_url_data(url, '<span class="c-tib-text" data-temp="','°</span>"')}
-
 while(True):
+    ambient_data = {dic_data: get_url_data(url, sub_url_form, sub_url_to, find_from, find_to)}    
+
     consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
     print("---- Data updating ("+consulting_datetime+") ----")
 
     for data in ambient_data:              
-        print(data + "["+ str(len(ambient_data[data])) +"]: " + ambient_data[data])
+        print(data + "["+ str(len(ambient_data[data])) +"]: "+ ambient_data[data])
         query = F"UPDATE home_external SET VALUE = '{ambient_data[data]}', DATETIME = '{consulting_datetime}' WHERE MEANING = '{data}'"
         ddbb_send_query(query)
 	
-    time.sleep(300)
+    time.sleep(consulting_delay)
