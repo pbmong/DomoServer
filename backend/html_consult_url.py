@@ -20,15 +20,15 @@ def get_url_data(url, sub_url_form, sub_url_to, substring_from, substring_to):
     http = urllib3.PoolManager()
 
     response = http.request('GET', url)
+    decoded_data = response.data.decode('utf-8') #, errors='replace'
+    f = open("demofile2.xml", "a")
+    f.write(decoded_data)
+    f.close()
 
-    #f = open("demofile2.xml", "a")
-    #f.write(response.data.decode("UTF-8"))
-    #f.close()
-
-    ind_sub_from = response.data.decode().find(sub_url_form)
-    ind_sub_to = response.data.decode().find(sub_url_to)
+    ind_sub_from = decoded_data.find(sub_url_form)
+    ind_sub_to = decoded_data.find(sub_url_to)
     
-    sub_url = response.data.decode()[ind_sub_from+len(sub_url_form) : ind_sub_to]
+    sub_url = decoded_data[ind_sub_from+len(sub_url_form) : ind_sub_to]
     # print("sub_url[" + str(ind_sub_from) + ":" + str(ind_sub_to) + "]:")
 
     ind_from = sub_url.find(substring_from)
