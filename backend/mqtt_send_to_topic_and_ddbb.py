@@ -2,8 +2,10 @@ import sys
 import paho.mqtt.client as mqtt
 import mysql.connector
 from mysql.connector import Error
+import time
+import datetime
 
-def ddbb_send_query(query):
+def ddbb_insert_query(query):
     try: 
         mydb = mysql.connector.connect(
         host = "localhost",
@@ -15,8 +17,24 @@ def ddbb_send_query(query):
         mycursor = mydb.cursor()
         mycursor.execute(query)
         mydb.commit()
-        print(mycursor.rowcount, "record(s) affected")
+        # print(mycursor.rowcount, "record(s) affected")
 
+    except:
+        print(f"DDBB error: {Error} ")
+
+def ddbb_select_query(query):
+    try: 
+        mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "pi",
+        password = "raspberry",
+        database = "DomoServer"
+        )
+
+        mycursor = mydb.cursor()
+        mycursor.execute(query)
+
+        return mycursor.fetchall()
     except:
         print(f"DDBB error: {Error} ")
 
@@ -33,7 +51,7 @@ command = sys.argv[2]
 
 # Send topic
 broker_address="127.0.0.1"
-#print("creating new instance")
+# print("creating new instance")
 client = mqtt.Client("P1") #create new instance
 client.on_message=on_message #attach function to callback
 
@@ -59,6 +77,15 @@ ddbb_meaning = topic[indexes[len(indexes)-1]+1:len(topic)]
 #print(F"{ddbb_meaning}[{indexes[len(indexes)-1]+1}:{len(topic)}]")
 query = F"UPDATE {ddbb_table} SET VALUE = '{command}' WHERE MEANING = '{ddbb_meaning}'"
 print(query)
-ddbb_send_query(query)
+ddbb_insert_query(query)
+
+curr_dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+query = F"SELECT MAX(ID) FROM mqtt_historic"
+result = ddbb_select_query(query)
+ID = result[0][0];
+if ID == None:
+    ID = 0
+query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{topic}', '{command}')"
+ddbb_insert_query(query)
 
 #client.loop_forever()
