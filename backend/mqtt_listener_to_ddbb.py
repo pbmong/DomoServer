@@ -5,6 +5,8 @@ from mysql.connector import Error
 import time
 import datetime
 
+topic_list = [	"home/living_room/P","home/living_room/T","home/living_room/H",
+		"home/room/P","home/room/T","home/room/H"]
 
 def ddbb_insert_query(query):
     try: 
@@ -42,8 +44,10 @@ def ddbb_select_query(query):
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
-    client.subscribe("home/room/P")
-    client.subscribe("home/room/T")
+    
+    for topic in topic_list:
+        client.subscribe(topic)
+    
 
 def on_message(client, userdata, message):
     msg_topic = message.topic

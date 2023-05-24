@@ -1,7 +1,9 @@
 import subprocess
 
+#"sudo systemctl restart mosquitto"
 
 cmd_list = [
+
 "python /var/www/html/Domo/backend/ddbb_programed_commands.py",
 "python /var/www/html/Domo/backend/mqtt_listener_to_ddbb.py",	 
 
