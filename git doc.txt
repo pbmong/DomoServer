@@ -2,6 +2,9 @@
 Go to "settings" in profile icon and go to "Developer settings/Personal access tokens" and generate this token
 Manage expiration time
 
+- Visual Studio Code commints
+it's prefered too commints all modified files from VS Code and then push it with the terminal
+
 - Commands
 cd /var/www/html/Domo
 git status
