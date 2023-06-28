@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     echo "Connected successfully <br>";    
 }
 
-/*$sql = "UPDATE home_room SET VALUE='" . $_GET['VALUE'] . "' WHERE MEANING='R'";
+/*$sql = "UPDATE home_bedroom SET VALUE='" . $_GET['VALUE'] . "' WHERE MEANING='R'";
 
 if ($conn->query($sql) === TRUE) {
   echo "Record updated successfully<br>";
@@ -26,7 +26,7 @@ if ($conn->query($sql) === TRUE) {
 
 mysqli_close($conn);
 
-$cmd = "python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/room/R ".$_GET['VALUE'];
+$cmd = "python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R ".$_GET['VALUE'];
 echo $cmd.": ";
 $output = shell_exec($cmd);
 echo $output;

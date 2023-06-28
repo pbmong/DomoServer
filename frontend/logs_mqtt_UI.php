@@ -1,9 +1,9 @@
 <head>
-<link rel="stylesheet" href="UI_styles.css">
+<link rel="stylesheet" href="UI_styles_1.css">
 </head>
 <body>
     <form action="http://192.168.1.187/Domo/index.php" method="get">
-    <button class='tittle' type="submit">MAIN MENU</button>
+    <button class='tittle_button' type="submit">MAIN MENU</button>
     </form>
     <div><div class='section'>MQTT LOGS</div>
     <form class='filter' action="http://192.168.1.187/Domo/frontend/logs_mqtt_UI.php" method="get">
@@ -55,7 +55,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $topic_filter = "home/room/T";
+    $topic_filter = "home/bedroom/T";
     if ($_GET['filter']){
 	$topic_filter = $_GET['filter'];
     }

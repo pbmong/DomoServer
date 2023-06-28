@@ -6,7 +6,7 @@ import time
 import datetime
 
 topic_list = [	"home/living_room/P","home/living_room/T","home/living_room/H",
-		"home/room/P","home/room/T","home/room/H"]
+		"home/bedroom/P","home/bedroom/T","home/bedroom/H"]
 
 def ddbb_insert_query(query):
     try: 

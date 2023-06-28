@@ -17,7 +17,7 @@
 }
 .section{
 	font-size: 120px;
-	border-bottom: 5px solid;
+	border-bottom: 10px solid;
 	border-radius: 10px;
 	color: var(--text);
 	border-color: var(--base);
@@ -26,7 +26,7 @@
 }
 .sub_section{
 	font-size: 100px;
-	border-bottom: 2px solid;
+	border-bottom: 6px solid;
 	border-radius: 10px;
 	color: var(--text);
 	border-color: var(--base);
@@ -47,13 +47,23 @@
 }
 .atc_button{
 	font-size: 100px;
-	border: 3px solid;
+	border: 10px solid;
 	border-radius: 50px;
 	padding: 0px 20px 0px 20px;
 	align-content: center;
 	color: var(--text);
 	border-color: var(--border);
 	background-color: var(--base);	
+}
+.tittle_button{
+	font-size: 120px;
+	border: 10px solid;
+	border-radius: 60px;
+ 	margin: 10px 10px 10px 60px;
+	color: var(--text);
+	border-color: var(--border);
+	background-color: var(--base);
+	padding: 0px 10px 0px 10px;        
 }
 
 table{

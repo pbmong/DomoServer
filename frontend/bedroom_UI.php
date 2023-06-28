@@ -1,11 +1,11 @@
 <head>
-<link rel="stylesheet" href="UI_styles.css">
+<link rel="stylesheet" href="UI_styles_1.css">
 </head>
 <body>
    <div><form action="http://192.168.1.187/Domo/index.php" method="get">
-    <button class='tittle' type="submit">MAIN MENU</button>
+    <button class='tittle_button' type="submit">MAIN MENU</button>
     </form></div>
-    <br><div><div class='section'> ROOM </div><br>
+    <br><div><div class='section'> BEDROOM </div><br>
     <?php
     $servername = "localhost";
     $username = "pi";
@@ -19,7 +19,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM home_room";
+    $sql = "SELECT * FROM home_bedroom";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -27,12 +27,12 @@
         {
 	    if($row["MEANING"] == 'R'){
                 if($row["VALUE"] == 'ON'){
-                    echo '<form action="http://192.168.1.187/Domo/php/room_R.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/php/R.php" method="get">
                         <label name="MEANING" class="data" for="MEANING" value="R"> RELE:</label>
                         <button name="VALUE" class="atc_button" type="submit" for="VALUE" value="OFF">ON</button>
                     </form>';
                 }else{
-                    echo '<form action="http://192.168.1.187/Domo/php/room_R.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/php/R.php" method="get">
                         <label name="MEANING" class="data" for="MEANING" value="R"> RELE:</label>
                         <button name="VALUE" class="atc_button" type="submit" for="VALUE" value="ON">OFF</button>
                     </form>';;
@@ -40,12 +40,12 @@
             }
 	    if($row["MEANING"] == 'L'){
                 if($row["VALUE"] == 'ON'){
-                    echo '<form action="http://192.168.1.187/Domo/php/room_L.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/php/L.php" method="get">
                         <label name="MEANING" class="data" for="MEANING" value="L"> LIGHT:</label>
                         <button class="atc_button" name="VALUE" type="submit" for="VALUE" value="OFF">ON</button>
                     </form>';
                 }else{
-                    echo '<form action="http://192.168.1.187/Domo/php/room_L.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/php/L.php" method="get">
                         <label name="MEANING" class="data" for="MEANING" value="L"> LIGHT:</label>
                         <button class="atc_button" name="VALUE" type="submit" for="VALUE" value="ON">OFF</button>
                     </form>';;
@@ -56,7 +56,7 @@
         echo "0 results";
     }
 
-    $sql = "SELECT * FROM home_room";
+    $sql = "SELECT * FROM home_bedroom";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
