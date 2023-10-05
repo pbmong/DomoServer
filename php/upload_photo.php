@@ -1,6 +1,6 @@
 <?php
 
-$target_dir = "/var/www/html/Domo/files";
+$target_dir = "Domo/";
 $datum = mktime(date('H')+0, date('i'), date('s'), date('m'), date('d'), date('y'));
 $target_file = $target_dir . date('Y.m.d_H:i:s_', $datum) . basename($_FILES["imageFile"]["name"]);
 $uploadOk = 1;
