@@ -82,12 +82,17 @@ def on_message(client, userdata, message):
             curr_dt = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             folder_destiny = files_upload_folder + ddbb_table + "_"+ curr_dt + "/"
             os.mkdir(folder_destiny)
-            entries = os.listdir(files_download_folder)
-            for entry in entries:
-                print(f"Sending file: '{entry}'")
+            
+            files_list = os.listdir(files_download_folder)
+            for entry in files_list:
                 if entry.find(ddbb_table):
                     shutil.move(files_download_folder + entry,  folder_destiny + entry)
-                    os.system("python /var/www/html/Domo/backend/send_email.py 'Domotic Raspbian Service detecte and intruder' " + folder_destiny + entry)
+            files = ""
+            for file in sorted(files_list):
+                files += " " + folder_destiny + file
+            print(f"Sending file: '{files_list}'")
+            os.system("python /var/www/html/Domo/backend/send_email.py 'Domotic Raspbian Service detecte and intruder' " + files)
+
 
     #default processing
     else:

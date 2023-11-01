@@ -1,8 +1,7 @@
 <?php
 
-$target_dir = "Domo/";
-$datum = mktime(date('H')+0, date('i'), date('s'), date('m'), date('d'), date('y'));
-$target_file = $target_dir . date('Y.m.d_H:i:s_', $datum) . basename($_FILES["imageFile"]["name"]);
+$target_dir = "/var/www/html/Domo/upload/";
+$target_file = $target_dir . basename($_FILES["imageFile"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -40,10 +39,11 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
+  echo "Sorry, your file ". basename( $_FILES["imageFile"]["name"]). " was not uploaded.";
 // if everything is ok, try to upload file
 }
 else {
+  
   if (move_uploaded_file($_FILES["imageFile"]["tmp_name"], $target_file)) {
     echo "The file ". basename( $_FILES["imageFile"]["name"]). " has been uploaded.";
   }
