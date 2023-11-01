@@ -1,7 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-#define RELE_PIN 0
+#define RELE_PIN    0
+#define SUB_REFRESH 2*60*1000 //ms
 
 // WiFi
 const char *ssid = "MIWIFI_sCXc_rt"; // Enter your WiFi name
@@ -14,6 +15,7 @@ const int mqtt_port = 1883;
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+unsigned long initMillis = millis();
 
 void callback(char *topic, byte *payload, unsigned int length) {
   Serial.print("Message arrived in topic: ");
@@ -60,7 +62,12 @@ void setup() {
 
 
 void loop() {
+ 
  client.loop();
+ if(!client.connected()){
+   send_subscription(topic);
+ }
+ delay(1000);
 }
 
 void send_subscription(const char *topic){

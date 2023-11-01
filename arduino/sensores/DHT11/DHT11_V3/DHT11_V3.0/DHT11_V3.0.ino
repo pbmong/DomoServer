@@ -18,8 +18,13 @@ const char *password = "dteQNyhF";  // Enter WiFi password
 // MQTT Broker
 const char *mqtt_broker = "192.168.1.187"; // Enter your WiFi or Ethernet IP
 const int mqtt_port = 1883;
-const char *tem_topic = "home/bedroom/T";
-const char *hum_topic = "home/bedroom/H";
+
+//const char *tem_topic = "home/bedroom/T";
+//const char *hum_topic = "home/bedroom/H";
+
+const char *tem_topic = "home/living_room/T";
+const char *hum_topic = "home/living_room/H";
+
 const char *tem_err_topic = "home/bedroom/T/error";
 const char *hum_err_topic = "home/bedroom/H/error";
 
