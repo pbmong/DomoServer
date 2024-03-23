@@ -1,25 +1,9 @@
 import sys
 import os
-import mysql.connector
-from mysql.connector import Error
 import time
 import datetime
 
-def ddbb_send_query(query):
-    try: 
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
-        )
-
-        mycursor = mydb.cursor()
-        mycursor.execute(query)
-
-        return mycursor.fetchall()
-    except:
-        print(f"DDBB error: {Error} ")
+from libraries import database_access as ddbb
 
 def check_weekday(week_dy, programed_dy_bin):
 
@@ -90,7 +74,7 @@ def check_datetime(curr_dt , programed_dt):
 
 
 while True:
-    for x in ddbb_send_query("SELECT * FROM programed_commands"):
+    for x in ddbb.ddbb_select_query("SELECT * FROM programed_commands"):
         curr_dt = datetime.datetime.now()
         week_dy = datetime.datetime.today().weekday() + 1
         if check_weekday(week_dy, x[3]) and check_datetime(curr_dt , x[2]):

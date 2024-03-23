@@ -48,6 +48,11 @@
     <button class='tittle_button' type="submit">MQTT LOGS</button>
     </form>
     <br>
+<!----   COMMANDS     -->
+    <form action="http://192.168.1.187/Domo/frontend/programed_commands_UI.php" method="get">
+    <button class='tittle_button' type="submit">COMMANDS</button>
+    </form>
+    <br>
 <!----   DDBB     -->
     <form action="http://192.168.1.187/phpmyadmin/sql.php?server=1&db=DomoServer&table=home_external&pos=0" method="get">
     <button class='tittle_button' type="submit">DDBB</button>

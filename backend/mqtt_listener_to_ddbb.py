@@ -3,10 +3,10 @@ import sys
 import shutil
 
 import paho.mqtt.client as mqtt
-import mysql.connector
-from mysql.connector import Error
 import time
 import datetime
+
+from libraries import database_access as ddbb
 
 topic_list = [	"home/living_room/P","home/living_room/T","home/living_room/H",
 		"home/bedroom/P","home/bedroom/T","home/bedroom/H","home/bedroom/C"]
@@ -14,40 +14,6 @@ topic_list = [	"home/living_room/P","home/living_room/T","home/living_room/H",
 #FTP cam parameters
 files_download_folder = "/home/pi/Downloads/"
 files_upload_folder = "/var/www/html/Domo/files/"
-
-def ddbb_insert_query(query):
-    try: 
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
-        )
-
-        mycursor = mydb.cursor()
-        mycursor.execute(query)
-        mydb.commit()
-        # print(mycursor.rowcount, "record(s) affected")
-
-    except:
-        print(f"DDBB error: {Error} ")
-
-def ddbb_select_query(query):
-    try: 
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
-        )
-
-        mycursor = mydb.cursor()
-        mycursor.execute(query)
-
-        return mycursor.fetchall()
-    except:
-        print(f"DDBB error: {Error} ")
-
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
@@ -71,12 +37,12 @@ def on_message(client, userdata, message):
     #for camera
     if msg_topic == "home/bedroom/C":
         query = F"SELECT MAX(ID) FROM mqtt_historic"
-        result = ddbb_select_query(query)
+        result = ddbb.ddbb_select_query(query)
         ID = result[0][0];
         if ID == None:
             ID = 0
         query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
-        ddbb_insert_query(query)
+        ddbb.ddbb_insert_query(query)
         
         if msg_value == "ACK":
             curr_dt = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
@@ -99,15 +65,15 @@ def on_message(client, userdata, message):
         ddbb_meaning = msg_topic[indexes[len(indexes)-1]+1:len(msg_topic)]
         query = F"UPDATE {ddbb_table} SET VALUE = '{msg_value}' WHERE MEANING = '{ddbb_meaning}'"
         #print(query)
-        ddbb_insert_query(query)	
+        ddbb.ddbb_insert_query(query)	
 
         query = F"SELECT MAX(ID) FROM mqtt_historic"
-        result = ddbb_select_query(query)
+        result = ddbb.ddbb_select_query(query)
         ID = result[0][0];
         if ID == None:
             ID = 0
         query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
-        ddbb_insert_query(query)
+        ddbb.ddbb_insert_query(query)
 
 
 # Send topic

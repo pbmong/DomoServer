@@ -1,9 +1,9 @@
 import sys
 import paho.mqtt.client as mqtt
-import mysql.connector
-from mysql.connector import Error
 import time
 import datetime
+
+from libraries import database_access as ddbb
 
 def ddbb_insert_query(query):
     try: 
@@ -77,15 +77,14 @@ ddbb_meaning = topic[indexes[len(indexes)-1]+1:len(topic)]
 #print(F"{ddbb_meaning}[{indexes[len(indexes)-1]+1}:{len(topic)}]")
 query = F"UPDATE {ddbb_table} SET VALUE = '{command}' WHERE MEANING = '{ddbb_meaning}'"
 print(query)
-ddbb_insert_query(query)
+ddbb.ddbb_insert_query(query)
 
 curr_dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 query = F"SELECT MAX(ID) FROM mqtt_historic"
-result = ddbb_select_query(query)
+result = ddbb.ddbb_select_query(query)
 ID = result[0][0];
 if ID == None:
     ID = 0
 query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{topic}', '{command}')"
-ddbb_insert_query(query)
+ddbb.ddbb_insert_query(query)
 
-#client.loop_forever()

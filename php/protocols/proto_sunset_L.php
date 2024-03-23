@@ -1,5 +1,5 @@
 <?php
-$cmd = "python /var/www/html/Domo/backend/mqtt_sunset_send_to_topic.py ".$_GET['TOPIC']." 1";
+$cmd = "python /var/www/html/Domo/backend/protocol_mqtt_sunset_send_to_topic.py ".$_GET['TOPIC']." 1";
 echo $cmd.": ";
 $output = shell_exec($cmd);
 echo $output;

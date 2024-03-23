@@ -45,6 +45,10 @@
 	color: var(--text);
 	margin: 10px 0px 10px 0px;
 }
+.datetime_filter{
+	font-size: 80px;
+	color: var(--text);
+    }
 .atc_button{
 	font-size: 100px;
 	border: 10px solid;
@@ -65,7 +69,10 @@
 	background-color: var(--base);
 	padding: 0px 10px 0px 10px;        
 }
-
+table, th, td {
+    	border: 3px solid; 
+    	border-color: var(--base);
+    }
 table{
 	font-size: 70px;
 	margin-left: 120px;
