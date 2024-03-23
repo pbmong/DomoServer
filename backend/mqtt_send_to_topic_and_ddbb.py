@@ -5,39 +5,6 @@ import datetime
 
 from libraries import database_access as ddbb
 
-def ddbb_insert_query(query):
-    try: 
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
-        )
-
-        mycursor = mydb.cursor()
-        mycursor.execute(query)
-        mydb.commit()
-        # print(mycursor.rowcount, "record(s) affected")
-
-    except:
-        print(f"DDBB error: {Error} ")
-
-def ddbb_select_query(query):
-    try: 
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
-        )
-
-        mycursor = mydb.cursor()
-        mycursor.execute(query)
-
-        return mycursor.fetchall()
-    except:
-        print(f"DDBB error: {Error} ")
-
 ############
 def on_message(client, userdata, message):
     print("message received " ,str(message.payload.decode("utf-8")))

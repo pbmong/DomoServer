@@ -1,9 +1,9 @@
 import sys
 import urllib3
-import mysql.connector
-from mysql.connector import Error
 import time
 import datetime
+
+from libraries import database_access as ddbb
 
 str_err = "Url parsing error"
 
@@ -45,20 +45,8 @@ def get_url_data(url, sub_url_form, sub_url_to, substring_from, substring_to):
     except:
         print("Failed to receive data from url ")
         return str_err
-def ddbb_send_query(query):
-    try: 
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
-        )
-        mycursor = mydb.cursor()
-        mycursor.execute(query)
-        mydb.commit()
-        print(mycursor.rowcount, "record(s) affected")
-    except:
-        print(f"DDBB error: {Error} ")
+
+
 while(True):
     ambient_data = {dic_data: get_url_data(url, sub_url_form, sub_url_to, find_from, find_to)}    
     consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
@@ -68,6 +56,6 @@ while(True):
     else:
         print(dic_data + "["+ str(len(ambient_data[dic_data])) +"]: "+ ambient_data[dic_data])
         query = F"UPDATE home_external SET VALUE = '{ambient_data[dic_data]}', DATETIME = '{consulting_datetime}' WHERE MEANING = '{dic_data}'"
-        ddbb_send_query(query)
+        ddbb.ddbb_update_query(query)
 	
     time.sleep(consulting_delay)
