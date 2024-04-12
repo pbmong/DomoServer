@@ -74,13 +74,18 @@ def check_datetime(curr_dt , programed_dt):
 
 
 while True:
-    for x in ddbb.ddbb_select_query("SELECT * FROM programed_commands"):
-        curr_dt = datetime.datetime.now()
-        week_dy = datetime.datetime.today().weekday() + 1
-        if check_weekday(week_dy, x[3]) and check_datetime(curr_dt , x[2]):
-                print(f"->({curr_dt}) {x[2]}: {x[1]}")
-                res = os.system(x[1])
-                print(res)   
-                print("-------------------------------------------------------------")                                                 
+    try:
+        command_list = ddbb.ddbb_select_query("SELECT * FROM programed_commands")
+        print(command_list)
+        for x in command_list:
+            curr_dt = datetime.datetime.now()
+            week_dy = datetime.datetime.today().weekday() + 1
+            if check_weekday(week_dy, x[3]) and check_datetime(curr_dt , x[2]):
+                    print(f"->({curr_dt}) {x[2]}: {x[1]}")
+                    res = os.system(x[1])
+                    print(res)   
+                    print("-------------------------------------------------------------")                                                 
+    except:
+        print("Exception processing programmed commands")
     
     time.sleep(60)

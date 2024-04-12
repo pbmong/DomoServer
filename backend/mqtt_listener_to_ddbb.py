@@ -33,52 +33,56 @@ def on_message(client, userdata, message):
     ddbb_table = msg_topic[0:indexes[len(indexes)-1]]
     ddbb_table = ddbb_table.replace('/','_')
     
-    #request processing
-    #for camera
-    if msg_topic == "home/bedroom/C":
-        query = F"SELECT MAX(ID) FROM mqtt_historic"
-        result = ddbb.ddbb_select_query(query)
-        ID = result[0][0];
-        if ID == None:
-            ID = 0
-        query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
-        ddbb.ddbb_insert_query(query)
-        
-        if msg_value == "ACK":
-            curr_dt = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            folder_destiny = files_upload_folder + ddbb_table + "_"+ curr_dt + "/"
-            os.mkdir(folder_destiny)
+    try:
+        #request processing
+        #for camera
+        if msg_topic == "home/bedroom/C":
+            query = F"SELECT MAX(ID) FROM mqtt_historic"
+            result = ddbb.ddbb_select_query(query)
+            ID = result[0][0];
+            if ID == None:
+                ID = 0
+            query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
+            ddbb.ddbb_insert_query(query)
             
-            files_list = os.listdir(files_download_folder)
-            for entry in files_list:
-                if entry.find(ddbb_table):
-                    shutil.move(files_download_folder + entry,  folder_destiny + entry)
-            files = ""
-            for file in sorted(files_list):
-                files += " " + folder_destiny + file
-            print(f"Sending file: '{files_list}'")
-            os.system("python /var/www/html/Domo/backend/send_email.py 'Domotic Raspbian Service detecte and intruder' " + files)
+            if msg_value == "ACK":
+                curr_dt = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+                folder_destiny = files_upload_folder + ddbb_table + "_"+ curr_dt + "/"
+                os.mkdir(folder_destiny)
+                
+                files_list = os.listdir(files_download_folder)
+                for entry in files_list:
+                    if entry.find(ddbb_table):
+                        shutil.move(files_download_folder + entry,  folder_destiny + entry)
+                files = ""
+                for file in sorted(files_list):
+                    files += " " + folder_destiny + file
+                print(f"Sending file: '{files_list}'")
+                os.system("python /var/www/html/Domo/backend/send_email.py 'Domotic Raspbian Service detecte and intruder' " + files)
 
 
-    #default processing
-    else:
-        ddbb_meaning = msg_topic[indexes[len(indexes)-1]+1:len(msg_topic)]
-        query = F"UPDATE {ddbb_table} SET VALUE = '{msg_value}' WHERE MEANING = '{ddbb_meaning}'"
-        #print(query)
-        ddbb.ddbb_insert_query(query)	
+        #default processing
+        else:
+            ddbb_meaning = msg_topic[indexes[len(indexes)-1]+1:len(msg_topic)]
+            query = F"UPDATE {ddbb_table} SET VALUE = '{msg_value}' WHERE MEANING = '{ddbb_meaning}'"
+            #print(query)
+            ddbb.ddbb_insert_query(query)	
 
-        query = F"SELECT MAX(ID) FROM mqtt_historic"
-        result = ddbb.ddbb_select_query(query)
-        ID = result[0][0];
-        if ID == None:
-            ID = 0
-        query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
-        ddbb.ddbb_insert_query(query)
+            query = F"SELECT MAX(ID) FROM mqtt_historic"
+            result = ddbb.ddbb_select_query(query)
+            ID = result[0][0];
+            if ID == None:
+                ID = 0
+            query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
+            ddbb.ddbb_insert_query(query)    
+            
+    except:
+        print("MQTT message processing error")
 
 
 # Send topic
 broker_address="127.0.0.1"
-#print("creating new instance")
+
 client = mqtt.Client("esp8266-client-") #create new instance
 client.on_message=on_message #attach function to callback
 client.on_connect = on_connect

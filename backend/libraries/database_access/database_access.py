@@ -4,55 +4,66 @@
 import mysql.connector
 from mysql.connector import Error
 
+ddbb_host = "localhost"
+ddbb_user = "pi"
+ddbb_password = "raspberry"
+ddbb_database = "DomoServer"
+
 def ddbb_insert_query(query):
     try: 
         mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
+            host = ddbb_host,
+            user = ddbb_user,
+            password = ddbb_password,
+            database = ddbb_database
         )
 
         mycursor = mydb.cursor()
         mycursor.execute(query)
         mydb.commit()
 
-        mydb.disconnect()
-        # print(mycursor.rowcount, "record(s) affected")
+        mydb.close()
+        print(mycursor.rowcount, "record(s) inserted")
 
-    except:
-        print(f"DDBB error: {Error} ")
+    except mysql.connector.Error as err:
+        print(f"DDBB insert error: {format(err)} ")
+        mydb.close()
+    
 
 def ddbb_select_query(query):
     try: 
         mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
+            host = ddbb_host,
+            user = ddbb_user,
+            password = ddbb_password,
+            database = ddbb_database
         )
 
         mycursor = mydb.cursor()
         mycursor.execute(query)
 
-        mydb.disconnect()
+        mydb.close()
         return mycursor.fetchall()
-    except:
-        print(f"DDBB error: {Error} ")
+    
+    except mysql.connector.Error as err:
+        print(f"DDBB select error: {format(err)} ")
+        mydb.close()
         
 def ddbb_update_query(query):
     try: 
         mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "pi",
-        password = "raspberry",
-        database = "DomoServer"
+            host = ddbb_host,
+            user = ddbb_user,
+            password = ddbb_password,
+            database = ddbb_database
         )
         mycursor = mydb.cursor()
         mycursor.execute(query)
         mydb.commit()
 
-        mydb.disconnect()
-        print(mycursor.rowcount, "record(s) affected")
-    except:
-        print(f"DDBB error: {Error} ")
+        mydb.close()
+        print(mycursor.rowcount, "record(s) updated")
+    
+    except mysql.connector.Error as err:
+        print(f"DDBB update error: {format(err)} ")
+        mydb.close()

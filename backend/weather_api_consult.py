@@ -7,11 +7,11 @@ import json
 
 from libraries import database_access as ddbb
 
-str_err = "Url parsing error"
+str_err = "Url request error"
 
 dic_data = "ambient_data"
 url = "https://www.el-tiempo.net/api/json/v2/provincias/41/municipios/41091"
-consulting_delay = 5000
+consulting_delay = 60 #seconds
 
 
 def get_url_data(url):
@@ -20,18 +20,21 @@ def get_url_data(url):
         http = urllib3.PoolManager()
 
         response = http.request('GET', url)
+        decoded_data = response.data.decode('utf-8') #, errors='replace'
         
-        return response.json();
+        return json.loads(decoded_data)
     
-    except:
-        print("Failed to receive data from url ")
+    except Exception:
+        print("Error getting data from url: ")
+        print(Exception)
         return str_err
 
 
 while(True):
-    weather_response = get_url_data(url)  
     consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
     print("---- Data updating ("+consulting_datetime+") ----")
+    weather_response = get_url_data(url)  
+    
     if weather_response == str_err:
         print(weather_response)
     else:
