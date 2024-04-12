@@ -23,8 +23,9 @@ def get_url_data(url):
         
         return response.json();
     
-    except:
-        print("Failed to receive data from url ")
+    except Exception:
+        print("Error getting data from url: ")
+        print(Exception)
         return str_err
 
 
@@ -41,14 +42,17 @@ while(True):
                 sunset = weather_response["pronostico"]["hoy"]["@attributes"]["orto"]
                 sunrise = weather_response["pronostico"]["hoy"]["@attributes"]["ocaso"]
 
-                query = F"UPDATE home_external SET VALUE = '{current_temperature}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Temperature'"
-                ddbb.ddbb_update_query(query)
+                try:
+                    query = F"UPDATE home_external SET VALUE = '{current_temperature}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Temperature'"
+                    ddbb.ddbb_update_query(query)
 
-                query = F"UPDATE home_external SET VALUE = '{sunset}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Sunset'"
-                ddbb.ddbb_update_query(query)
+                    query = F"UPDATE home_external SET VALUE = '{sunset}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Sunset'"
+                    ddbb.ddbb_update_query(query)
 
-                query = F"UPDATE home_external SET VALUE = '{sunrise}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Sunrise'"
-                ddbb.ddbb_update_query(query)
+                    query = F"UPDATE home_external SET VALUE = '{sunrise}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Sunrise'"
+                    ddbb.ddbb_update_query(query)  
+                except: 
+                    print("Error updating weather data in database")     
             else:
                 print("Weather data not from Sevilla")
             
