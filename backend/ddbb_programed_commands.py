@@ -5,6 +5,9 @@ import datetime
 
 from libraries import database_access as ddbb
 
+waiting_delay = 60
+
+# Function to check if the programmed day is the same as the current day
 def check_weekday(week_dy, programed_dy_bin):
 
     if week_dy == 1:
@@ -27,6 +30,7 @@ def check_weekday(week_dy, programed_dy_bin):
 
     return int(res, 2)
 
+# Function to check if the programmed time is the same as the current time
 def check_datetime(curr_dt , programed_dt):
     
     try:
@@ -76,11 +80,14 @@ def check_datetime(curr_dt , programed_dt):
 print("Executing programmed commands")
 while True:
     try:
+        #Select programmed commands from database
         command_list = ddbb.ddbb_select_query("SELECT * FROM programed_commands")
         
         for x in command_list:
             curr_dt = datetime.datetime.now()
             week_dy = datetime.datetime.today().weekday() + 1
+
+            #Check if the programmed command is for the current day and time
             if check_weekday(week_dy, x[3]) and check_datetime(curr_dt , x[2]):
                     print(f"->({curr_dt}) {x[2]}: {x[1]}")
                     res = os.system(x[1])
@@ -89,4 +96,4 @@ while True:
     except:
         print("Exception processing programmed commands")
     
-    time.sleep(60)
+    time.sleep(waiting_delay)

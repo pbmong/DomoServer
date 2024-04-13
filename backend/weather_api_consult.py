@@ -8,12 +8,13 @@ import json
 from libraries import database_access as ddbb
 
 str_err = "Url request error"
+city_name = "Sevilla"
 
 dic_data = "ambient_data"
 url = "https://www.el-tiempo.net/api/json/v2/provincias/41/municipios/41091"
 consulting_delay = 1200 #seconds
 
-
+# Function to get json data from url API
 def get_url_data(url):
 
     try:    
@@ -29,7 +30,7 @@ def get_url_data(url):
         print(Exception)
         return str_err
 
-
+# Main loop: get weather data from url and update database
 while(True):
     consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
     print("---- Data updating ("+consulting_datetime+") ----")
@@ -39,7 +40,8 @@ while(True):
         print(weather_response)
     else:
         try:
-            if weather_response["municipio"]["NOMBRE"] == "Sevilla":
+            # Check if the weather data is from expected location
+            if weather_response["municipio"]["NOMBRE"] == city_name:
                 current_temperature = weather_response["temperatura_actual"]
                 sunset = weather_response["pronostico"]["hoy"]["@attributes"]["orto"]
                 sunrise = weather_response["pronostico"]["hoy"]["@attributes"]["ocaso"]
@@ -56,7 +58,7 @@ while(True):
                 except: 
                     print("Error updating weather data in database")     
             else:
-                print("Weather data not from Sevilla")
+                print("Weather data not from {city_name}")
             
         except:
             print("Error processing weather json data")
