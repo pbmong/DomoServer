@@ -1,0 +1,9 @@
+DomoServer Project
+
+This project is a personal home service for domotic control and supervision. The objective is to develop a complete system to interactuate and maintain home conditions and security, under tecnologies Python, MQTT, MySQL Server to manage back-end and HTML, PHP and CSS for front-end user interface. Sensors and actors are developed with Arduino boards and integrated in system´s server throw MQTT communications.
+
+List of services:
+ - Sensors for temperature and humidity, IR presence detectors. Actors to control switch on and of electric machines, infrared devices and cameras.
+ - MQTT listener service to recive sensors fata and MQTT sender to manage actors.
+ - Database information storage to save system configuration, home state and commands programation.
+ - Friendly and symple user interface throw web application for users usage of home services.
