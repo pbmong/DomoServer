@@ -73,10 +73,11 @@ def check_datetime(curr_dt , programed_dt):
         return False;
 
 
+print("Executing programmed commands")
 while True:
     try:
         command_list = ddbb.ddbb_select_query("SELECT * FROM programed_commands")
-        print(command_list)
+        
         for x in command_list:
             curr_dt = datetime.datetime.now()
             week_dy = datetime.datetime.today().weekday() + 1

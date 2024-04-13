@@ -11,7 +11,7 @@ str_err = "Url request error"
 
 dic_data = "ambient_data"
 url = "https://www.el-tiempo.net/api/json/v2/provincias/41/municipios/41091"
-consulting_delay = 60 #seconds
+consulting_delay = 1200 #seconds
 
 
 def get_url_data(url):

@@ -22,12 +22,10 @@ def ddbb_insert_query(query):
         mycursor.execute(query)
         mydb.commit()
 
-        mydb.close()
         print(mycursor.rowcount, "record(s) inserted")
 
     except mysql.connector.Error as err:
         print(f"DDBB insert error: {format(err)} ")
-        mydb.close()
     
 
 def ddbb_select_query(query):
@@ -42,12 +40,10 @@ def ddbb_select_query(query):
         mycursor = mydb.cursor()
         mycursor.execute(query)
 
-        mydb.close()
         return mycursor.fetchall()
     
     except mysql.connector.Error as err:
         print(f"DDBB select error: {format(err)} ")
-        mydb.close()
         
 def ddbb_update_query(query):
     try: 
@@ -61,9 +57,7 @@ def ddbb_update_query(query):
         mycursor.execute(query)
         mydb.commit()
 
-        mydb.close()
         print(mycursor.rowcount, "record(s) updated")
     
     except mysql.connector.Error as err:
         print(f"DDBB update error: {format(err)} ")
-        mydb.close()
