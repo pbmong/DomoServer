@@ -12,8 +12,11 @@ topic_list = [	"home/living_room/P","home/living_room/T","home/living_room/H",
 		"home/bedroom/P","home/bedroom/T","home/bedroom/H","home/bedroom/C"]
 
 #FTP cam parameters
+camera_topic = "home/bedroom/C"
+
+#TODO: storage folder in ddbb configuration table
 files_download_folder = "/home/pi/Downloads/"
-files_upload_folder = "/var/www/html/Domo/files/"
+files_upload_folder = "/var/www/html/Domo/backend/files/"
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
@@ -36,7 +39,7 @@ def on_message(client, userdata, message):
     try:
         #request processing
         #for camera
-        if msg_topic == "home/bedroom/C":
+        if msg_topic == camera_topic:
             query = F"SELECT MAX(ID) FROM mqtt_historic"
             result = ddbb.ddbb_select_query(query)
             ID = result[0][0];
@@ -45,6 +48,7 @@ def on_message(client, userdata, message):
             query = F"INSERT INTO mqtt_historic (ID, DATETIME, TOPIC, VALUE) VALUES ('{ID + 1}','{curr_dt}', '{message.topic}', '{msg_value}')"
             ddbb.ddbb_insert_query(query)
             
+            # if the message is an ACK, camera has sent all the images
             if msg_value == "ACK":
                 curr_dt = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
                 folder_destiny = files_upload_folder + ddbb_table + "_"+ curr_dt + "/"
@@ -58,7 +62,7 @@ def on_message(client, userdata, message):
                 for file in sorted(files_list):
                     files += " " + folder_destiny + file
                 print(f"Sending file: '{files_list}'")
-                os.system("python /var/www/html/Domo/backend/send_email.py 'Domotic Raspbian Service detecte and intruder' " + files)
+                os.system("python /var/www/html/Domo/backend/send_email.py 'Domotic Raspbian Service detected and intruder' " + files)
 
 
         #default processing

@@ -6,6 +6,8 @@ import sys
 SMTP_SERVER = 'smtp.gmail.com' #Email Server (don't change!)
 SMTP_PORT = 587 #Server Port (don't change!)
 GMAIL_USERNAME = 'pablikco@gmail.com' #change this to match your gmail account
+
+#TODO: storage password with a secure method
 GMAIL_PASSWORD = 'mpupcmovbtlmmpun' #change this to match your gmail app-password
 
 sendTo = 'pablo15monterog@gmail.com'
@@ -33,8 +35,6 @@ class Emailer:
 sender = Emailer()
 message = EmailMessage()
 
-#sender = "your-name@gmail.com"
-#recipient = "example@example.com"
 message['From'] = GMAIL_USERNAME
 message['To'] = sendTo
 message['Subject'] = "DomoServer"
