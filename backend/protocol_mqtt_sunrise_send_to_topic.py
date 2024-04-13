@@ -32,14 +32,11 @@ client.disconnect()
 
 #update ddbb
 indexes = [x for x, v in enumerate(topic) if v == '/']
-#print(indexes)
 
 ddbb_table = topic[0:indexes[len(indexes)-1]]
 ddbb_table = ddbb_table.replace('/','_')
-#print(ddbb_table)
 
 ddbb_meaning = topic[indexes[len(indexes)-1]+1:len(topic)]
-#print(F"{ddbb_meaning}[{indexes[len(indexes)-1]+1}:{len(topic)}]")
 query = F"UPDATE {ddbb_table} SET VALUE = 'ON' WHERE MEANING = '{ddbb_meaning}'"
 print(query)
 ddbb.ddbb_insert_query(query)

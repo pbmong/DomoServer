@@ -9,6 +9,7 @@ ddbb_user = "pi"
 ddbb_password = "raspberry"
 ddbb_database = "DomoServer"
 
+# DDBB function to insert query parameter
 def ddbb_insert_query(query):
     try: 
         mydb = mysql.connector.connect(
@@ -30,6 +31,7 @@ def ddbb_insert_query(query):
         mydb.close()
     
 
+# DDBB function to select data following query command
 def ddbb_select_query(query):
     try: 
         mydb = mysql.connector.connect(
@@ -48,7 +50,8 @@ def ddbb_select_query(query):
     except mysql.connector.Error as err:
         print(f"DDBB select error: {format(err)} ")
         mydb.close()
-        
+
+# DDBB function to update parameters in database following query
 def ddbb_update_query(query):
     try: 
         mydb = mysql.connector.connect(

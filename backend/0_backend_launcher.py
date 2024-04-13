@@ -2,6 +2,7 @@ import subprocess
 
 #"sudo systemctl restart mosquitto"
 
+#commands launching to start backend services
 cmd_list = [
 
 "python /var/www/html/Domo/backend/ddbb_programed_commands.py",
