@@ -16,7 +16,7 @@
     <button class='tittle_button' type="submit">MAIN MENU</button>
     </form>
     <div><div class='section'>INSERT CMD</div>
-    <form class='filter' action="http://192.168.1.187/Domo/php/insert_command.php" method="get">
+    <form class='filter' action="http://192.168.1.187/Domo/backend/php/insert_command.php" method="get">
     <select class='filter' name='TOPIC'>
     	<option class='filter' value='home/bedroom/R'>home/bedroom/R</option>
     	<option class='filter' value='home/bedroom/L'>home/bedroom/L</option>
@@ -71,7 +71,7 @@
     </table></div><br>
 
     <div><div class='section'>DELETE CMD</div>
-    <form class='filter' action="http://192.168.1.187/Domo/php/delete_command.php" method="get">
+    <form class='filter' action="http://192.168.1.187/Domo/backend/php/delete_command.php" method="get">
     <input class='filter' type="text" name="ID" value="0" maxlength="3" size="1"> 
     <button class='filter' type="submit">Apply</button></form><br>
 </body>

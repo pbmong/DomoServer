@@ -45,7 +45,7 @@ const char* server = "192.168.1.187";
 //HTTP post
 const String serverName = "192.168.1.187";
 const int serverPort = 80;
-const String serverPath = "/Domo/php/upload_photo.php";
+const String serverPath = "/Domo/backend/php/upload_photo.php";
 
 //FTP
 char* ftp_user = "pi";
