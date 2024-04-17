@@ -1,13 +1,14 @@
 
 #python -m pip install mysql-connector-python
-
+import os
 import mysql.connector
 from mysql.connector import Error
 
-ddbb_host = "localhost"
-ddbb_user = "pi"
-ddbb_password = "raspberry"
+ddbb_host = os.environ.get("DB_DOCKER", "localhost")
+ddbb_user = "root"
+ddbb_password = "root"
 ddbb_database = "DomoServer"
+ddbb_port = 3306
 
 # DDBB function to insert query parameter
 def ddbb_insert_query(query):
@@ -16,7 +17,8 @@ def ddbb_insert_query(query):
             host = ddbb_host,
             user = ddbb_user,
             password = ddbb_password,
-            database = ddbb_database
+            database = ddbb_database,
+            port = ddbb_port
         )
 
         mycursor = mydb.cursor()
@@ -36,7 +38,8 @@ def ddbb_select_query(query):
             host = ddbb_host,
             user = ddbb_user,
             password = ddbb_password,
-            database = ddbb_database
+            database = ddbb_database,
+            port = ddbb_port
         )
 
         mycursor = mydb.cursor()
@@ -53,7 +56,8 @@ def ddbb_update_query(query):
             host = ddbb_host,
             user = ddbb_user,
             password = ddbb_password,
-            database = ddbb_database
+            database = ddbb_database,
+            port = ddbb_port
         )
         mycursor = mydb.cursor()
         mycursor.execute(query)

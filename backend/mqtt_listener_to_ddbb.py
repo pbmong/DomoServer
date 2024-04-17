@@ -2,14 +2,14 @@ import os
 import sys
 import shutil
 
-import paho.mqtt.client as mqtt
 import time
 import datetime
 
+import paho.mqtt.client as mqtt
 from libraries import database_access as ddbb
 
 topic_list = [	"home/living_room/P","home/living_room/T","home/living_room/H",
-		"home/bedroom/P","home/bedroom/T","home/bedroom/H","home/bedroom/C"]
+		        "home/bedroom/P","home/bedroom/T","home/bedroom/H","home/bedroom/C"]
 
 #FTP cam parameters
 camera_topic = "home/bedroom/C"
@@ -18,7 +18,12 @@ camera_topic = "home/bedroom/C"
 files_download_folder = "/home/pi/Downloads/"
 files_upload_folder = "/var/www/html/Domo/backend/files/"
 
-def on_connect(client, userdata, flags, rc):
+# MQTT parameters
+broker_address=os.environ.get("MQTT_DOCKER", "localhost")
+broker_port=1883
+client_id = f'python-mqtt'
+
+def on_connect(client, userdata, flags, rc, properties=None):
     print(f"Connected with result code {rc}")
     
     for topic in topic_list:
@@ -84,14 +89,12 @@ def on_message(client, userdata, message):
         print("MQTT message processing error")
 
 
-# Send topic
-broker_address="127.0.0.1"
-
-client = mqtt.Client("esp8266-client-") #create new instance
-client.on_message=on_message #attach function to callback
+print("Starting MQTT listener to broker: " + broker_address + ":" + str(broker_port))
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id) #create new instance
+client.on_message = on_message #attach function to callback
 client.on_connect = on_connect
 
 #connecting to broker
-client.connect(broker_address) #connect to broker
+client.connect(broker_address,broker_port) #connect to broker
 
 client.loop_forever()

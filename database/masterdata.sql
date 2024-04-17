@@ -21,8 +21,9 @@ SET time_zone = "+00:00";
 -- Base de datos: `DomoServer`
 --
 
--- --------------------------------------------------------
+CREATE DATABASE DomoServer;
 
+USE DomoServer;
 --
 -- Estructura de tabla para la tabla `home_bedroom`
 --

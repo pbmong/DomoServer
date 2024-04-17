@@ -27,13 +27,13 @@
         {
 	    if($row["MEANING"] == 'R'){
                 if($row["VALUE"] == 'ON'){
-                    echo '<form action="http://192.168.1.187/Domo/backend/php/update_parameter.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/frontend/php/update_parameter.php" method="get">
                         <label class="data"> RELE:</label>
                         <button name="VALUE" class="atc_button" type="submit" for="VALUE" value="OFF">ON</button>
 			<input name="TOPIC" value="home/bedroom/R" style="display:none"></input>
                     </form>';
                 }else{
-                    echo '<form action="http://192.168.1.187/Domo/backend/php/update_parameter.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/frontend/php/update_parameter.php" method="get">
                         <label class="data"> RELE:</label>
                         <button name="VALUE" class="atc_button" type="submit" for="VALUE" value="ON">OFF</button>
 			<input name="TOPIC" value="home/bedroom/R" style="display:none"></input>
@@ -42,14 +42,14 @@
             }
 	    if($row["MEANING"] == 'L'){
                 if($row["VALUE"] == 'ON'){
-                    echo '<form action="http://192.168.1.187/Domo/backend/php/update_parameter.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/frontend/php/update_parameter.php" method="get">
                         <label class="data"> LIGHT:</label>
                         <button class="atc_button" name="VALUE" type="submit" for="VALUE" value="OFF">ON</button>
 			<input name="TOPIC" for="TOPIC" value="home/bedroom/L" style="display:none"></input>
 
                     </form>';
                 }else{
-                    echo '<form action="http://192.168.1.187/Domo/backend/php/update_parameter.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/frontend/php/update_parameter.php" method="get">
                         <label name="MEANING" class="data"> LIGHT:</label>
                         <button class="atc_button" name="VALUE" type="submit" for="VALUE" value="ON">OFF</button>
 			<input name="TOPIC" for="TOPIC" value="home/bedroom/L" style="display:none"></input>
@@ -58,14 +58,14 @@
             }
 	    if($row["MEANING"] == 'C'){
                 if($row["VALUE"] == 'ON'){
-                    echo '<form action="http://192.168.1.187/Domo/backend/php/update_parameter.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/frontend/php/update_parameter.php" method="get">
                         <label class="data"> CAMERA:</label>
                         <button class="atc_button" name="VALUE" type="submit" for="VALUE" value="OFF">ON</button>
 			<input name="TOPIC" for="TOPIC" value="home/bedroom/C" style="display:none"></input>
 
                     </form>';
                 }else{
-                    echo '<form action="http://192.168.1.187/Domo/backend/php/update_parameter.php" method="get">
+                    echo '<form action="http://192.168.1.187/Domo/frontend/php/update_parameter.php" method="get">
                         <label name="MEANING" class="data"> CAMERA:</label>
                         <button class="atc_button" name="VALUE" type="submit" for="VALUE" value="ON">OFF</button>
 			<input name="TOPIC" for="TOPIC" value="home/bedroom/C" style="display:none"></input>
@@ -96,15 +96,15 @@
 <!-- PROTOCOLS -->
     <br><div><div class='section'>PROTOCOLS</div><br>
     <!--
-    <form action="http://192.168.1.187/Domo/backend/php/protocols/proto_photo_C.php" method="get">
+    <form action="http://192.168.1.187/Domo/frontend/php/protocols/proto_photo_C.php" method="get">
     <button name="TOPIC" class='atc_button' type="submit" value="home/bedroom/C" style="margin: 10px 10px 10px 60px;">Camera</button>
     </form>
     -->
-    <form action="http://192.168.1.187/Domo/backend/php/protocols/proto_sunset_L.php" method="get">
+    <form action="http://192.168.1.187/Domo/frontend/php/protocols/proto_sunset_L.php" method="get">
     <button name="TOPIC" class='atc_button' type="submit" value="home/bedroom/L" style="margin: 10px 10px 10px 60px;">Sunset</button>
     </form>
 
-    <form action="http://192.168.1.187/Domo/backend/php/protocols/proto_sunrise_L.php" method="get">
+    <form action="http://192.168.1.187/Domo/frontend/php/protocols/proto_sunrise_L.php" method="get">
     <button name="TOPIC" class='atc_button' type="submit" value="home/bedroom/L" style="margin: 10px 10px 10px 60px;">Sunrise</button>
     </form></div>
 </body>

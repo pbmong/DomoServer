@@ -1,0 +1,44 @@
+version: '1.0'
+services:
+  database:
+    container_name: database
+    build: ./database
+    expose:
+    - "3306"
+    ports:
+      - "3306:3306"
+    links:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: DomoServer
+      MYSQL_SA_PASSWORD: root
+    volumes:
+      - database_data:/var/lib/mysql
+
+  mqtt:
+    container_name: mqtt
+    image: toke/mosquitto
+    expose:
+      - "1883"
+    ports:
+      - "1883:1883"
+    #network_mode: bridge
+    restart: unless-stopped
+    links:
+      - backend
+  
+  backend:
+    container_name: backend
+    build: ./backend
+    environment:
+      MQTT_DOCKER: mqtt
+      DB_DOCKER: database
+    expose:
+      - "3307"
+    ports:
+      - "3307:3307"
+
+
+volumes:
+  database_data:
