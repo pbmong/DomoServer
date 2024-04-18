@@ -1,5 +1,5 @@
 <head>
-<link rel="stylesheet" href="UI_styles_1.css">
+<link rel="stylesheet" href="css/UI_styles_1.css">
 </head>
 <body>
     <form action="http://192.168.1.187/Domo/index.php" method="get">
@@ -9,10 +9,10 @@
     <form class='filter' action="http://192.168.1.187/Domo/frontend/logs_mqtt_UI.php" method="get">
     <select class='filter' name='filter'>
     <?php
-    $servername = "localhost";
-    $username = "pi";
-    $password = "raspberry";
-    $database = "DomoServer";
+    $servername = getenv("DB_HOSTNAME")?:"mysql";
+    $username = getenv("DB_USER")?:"root";
+    $password = getenv("DB_PASSWORD")?:"root";
+    $database = getenv("DB_NAME")?:"DomoServer";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $database);

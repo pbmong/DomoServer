@@ -9,12 +9,25 @@ services:
       - "3306:3306"
     links:
       - backend
+      - phpmyadmin
+      - frontend
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: DomoServer
       MYSQL_SA_PASSWORD: root
     volumes:
       - database_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
 
   mqtt:
     container_name: mqtt
@@ -32,12 +45,29 @@ services:
     container_name: backend
     build: ./backend
     environment:
-      MQTT_DOCKER: mqtt
-      DB_DOCKER: database
+      MQTT_CONTAINER_NAME: mqtt
+      DB_CONTAINER_NAME: database
     expose:
       - "3307"
     ports:
       - "3307:3307"
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    environment:
+      DB_HOSTNAME: database
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: DomoServer
+      EXTERNAL_IP: 192.168.1.155
+      PMA_PORT: 8081
+    expose:
+      - "80"
+      - "443"
+    ports:
+      - "80:80"
+      - "443:443"
 
 
 volumes:

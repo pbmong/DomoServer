@@ -4,7 +4,7 @@ import os
 import mysql.connector
 from mysql.connector import Error
 
-ddbb_host = os.environ.get("DB_DOCKER", "localhost")
+ddbb_host = os.environ.get("DB_CONTAINER_NAME", "localhost")
 ddbb_user = "root"
 ddbb_password = "root"
 ddbb_database = "DomoServer"

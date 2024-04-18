@@ -19,7 +19,7 @@ files_download_folder = "/home/pi/Downloads/"
 files_upload_folder = "/var/www/html/Domo/backend/files/"
 
 # MQTT parameters
-broker_address=os.environ.get("MQTT_DOCKER", "localhost")
+broker_address=os.environ.get("MQTT_CONTAINER_NAME", "localhost")
 broker_port=1883
 client_id = f'python-mqtt'
 

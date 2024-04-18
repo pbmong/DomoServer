@@ -1,5 +1,5 @@
 <head>
-<link rel="stylesheet" href="UI_styles_1.css">
+<link rel="stylesheet" href="css/UI_styles_1.css">
 <style>
     table, th, td {
     	border: 3px solid; 
@@ -39,10 +39,10 @@
     <button class='filter' type="submit">Apply</button></form><br>
     <div class='section'>COMMAND LIST</div><br><table>
     <?php
-    $servername = "localhost";
-    $username = "pi";
-    $password = "raspberry";
-    $database = "DomoServer";
+    $servername = getenv("DB_HOSTNAME")?:"mysql";
+    $username = getenv("DB_USER")?:"root";
+    $password = getenv("DB_PASSWORD")?:"root";
+    $database = getenv("DB_NAME")?:"DomoServer";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $database);
