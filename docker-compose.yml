@@ -48,9 +48,11 @@ services:
       MQTT_CONTAINER_NAME: mqtt
       DB_CONTAINER_NAME: database
     expose:
-      - "3307"
+      - "8000" #FastAIP port
     ports:
-      - "3307:3307"
+      - "8000:80" #FastAIP port
+    links:
+      - frontend
 
   frontend:
     container_name: frontend
@@ -62,12 +64,13 @@ services:
       DB_NAME: DomoServer
       EXTERNAL_IP: 192.168.1.155
       PMA_PORT: 8081
+      API_BACKEND_PORT: 8000
     expose:
-      - "80"
-      - "443"
+      - "80" #HTTP port
+      - "443" #HTTPS port
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:80" #HTTP port
+      - "443:443" #HTTPS port
 
 
 volumes:

@@ -1,3 +1,4 @@
+import os
 import sys
 import paho.mqtt.client as mqtt
 import time
@@ -16,17 +17,23 @@ def on_message(client, userdata, message):
 topic = sys.argv[1]
 command = sys.argv[2]
 
-# Send topic
-broker_address="127.0.0.1"
-client = mqtt.Client("P1") #create new instance
+# MQTT parameters
+broker_address=os.environ.get("MQTT_CONTAINER_NAME", "localhost")
+broker_port=1883
+client_id = f'backend-publisher-{os.getpid()}'
+
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id) #create new instance
 client.on_message=on_message #attach function to callback
 
+try:
 #connecting to broker
-client.connect(broker_address) #connect to broker
-print("Publishing message to topic ", topic, command)
+    client.connect(broker_address) #connect to broker
+    print("Publishing message to topic ", topic, command)
 
-client.publish(topic, command)
-client.disconnect()
+    client.publish(topic, command)
+    client.disconnect()
+except:
+    print("Error connecting to broker when publishing message")
 
 #update ddbb
 indexes = [x for x, v in enumerate(topic) if v == '/']

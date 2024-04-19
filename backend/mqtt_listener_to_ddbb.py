@@ -21,7 +21,7 @@ files_upload_folder = "/var/www/html/Domo/backend/files/"
 # MQTT parameters
 broker_address=os.environ.get("MQTT_CONTAINER_NAME", "localhost")
 broker_port=1883
-client_id = f'python-mqtt'
+client_id = f'backend-listener-{os.getpid()}'
 
 def on_connect(client, userdata, flags, rc, properties=None):
     print(f"Connected with result code {rc}")

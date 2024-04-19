@@ -2,7 +2,14 @@
 <link rel="stylesheet" href="css/UI_styles_1.css">
 </head>
 <body>
-    <form action="http://192.168.1.187/Domo/index.php" method="get">
+    <?php
+        $external_ip = getenv("EXTERNAL_IP")?:"localhost";
+        $external_port = getenv("EXTERNAL_PORT")?:"80";
+        $pma_port = getenv("PMA_PORT")?:"8081";
+
+        echo '<form action="http://'.$external_ip;
+        echo ":".$external_port;
+    ?>/index.php" method="get">
     <button class='tittle_button' type="submit">MAIN MENU</button>
     </form>
     <!----   LIVING ROOM      -->

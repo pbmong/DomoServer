@@ -2,12 +2,21 @@
 <link rel="stylesheet" href="css/UI_styles_1.css">
 </head>
 <body>
-    <form action="http://192.168.1.187/Domo/index.php" method="get">
+    <?php
+        $external_ip = getenv("EXTERNAL_IP")?:"localhost";
+        $external_port = getenv("EXTERNAL_PORT")?:"80";
+        $pma_port = getenv("PMA_PORT")?:"8081";
+
+        echo '<form action="http://'.$external_ip;
+        echo ":".$external_port;
+    ?>/index.php" method="get">
     <button class='tittle_button' type="submit">MAIN MENU</button>
     </form>
     <div><div class='section'>MQTT LOGS</div>
-    <form class='filter' action="http://192.168.1.187/Domo/frontend/logs_mqtt_UI.php" method="get">
-    <select class='filter' name='filter'>
+    <?php
+    echo "<form class='filter' action='http://".$external_ip."/logs_mqtt_UI.php' method='get'>"
+    ?><select class='filter' name='filter'>
+    
     <?php
     $servername = getenv("DB_HOSTNAME")?:"mysql";
     $username = getenv("DB_USER")?:"root";
@@ -43,11 +52,11 @@
     ?>
     <button class='filter' type="submit">Apply</button></form><br>
     <?php
-    $servername = "localhost";
-    $username = "pi";
-    $password = "raspberry";
-    $database = "DomoServer";
-
+    $servername = getenv("DB_HOSTNAME")?:"mysql";
+    $username = getenv("DB_USER")?:"root";
+    $password = getenv("DB_PASSWORD")?:"root";
+    $database = getenv("DB_NAME")?:"DomoServer";
+    
     // Create connection
     $conn = new mysqli($servername, $username, $password, $database);
     // Check connection
@@ -55,17 +64,10 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $topic_filter = "home/bedroom/T";
-    if ($_GET['filter']){
-	$topic_filter = $_GET['filter'];
-    }
+    $topic_filter = $_GET['filter']??"home/bedroom/T";
     echo "<div class='sub_section'>Log: ". $topic_filter."</div><br><table>";
     
-    $max_logs = 20;
-    if ($_GET['max_logs']){
-	$max_logs = $_GET['max_logs'];
-    }
-
+    $max_logs =  $_GET['max_logs']?? 20;
     $sql = "SELECT * FROM mqtt_historic WHERE TOPIC = '$topic_filter' ORDER BY DATETIME DESC LIMIT $max_logs ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {

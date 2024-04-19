@@ -12,11 +12,21 @@
 </style>
 </head>
 <body>
-   <form action="http://192.168.1.187/Domo/index.php" method="get">
+    <?php
+        $external_ip = getenv("EXTERNAL_IP")?:"localhost";
+        $external_port = getenv("EXTERNAL_PORT")?:"80";
+        $pma_port = getenv("PMA_PORT")?:"8081";
+        
+        echo '<form action="http://'.$external_ip;
+        echo ":".$external_port;
+    ?>/index.php" method="get">
+
     <button class='tittle_button' type="submit">MAIN MENU</button>
     </form>
     <div><div class='section'>INSERT CMD</div>
-    <form class='filter' action="http://192.168.1.187/Domo/frontend/php/insert_command.php" method="get">
+    <?php
+    echo "<form class='filter' action='http://".$external_ip."insert_command.php' method='get'>"
+    ?>
     <select class='filter' name='TOPIC'>
     	<option class='filter' value='home/bedroom/R'>home/bedroom/R</option>
     	<option class='filter' value='home/bedroom/L'>home/bedroom/L</option>
@@ -71,7 +81,9 @@
     </table></div><br>
 
     <div><div class='section'>DELETE CMD</div>
-    <form class='filter' action="http://192.168.1.187/Domo/frontend/php/delete_command.php" method="get">
+    <?php
+    echo "<form class='filter' action='http://".$external_ip."/php/delete_command.php' method='get'>"
+    ?>
     <input class='filter' type="text" name="ID" value="0" maxlength="3" size="1"> 
     <button class='filter' type="submit">Apply</button></form><br>
 </body>
