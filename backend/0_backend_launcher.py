@@ -1,16 +1,26 @@
-import subprocess
+import os
+import threading
+from subprocess import Popen, PIPE, CalledProcessError
 
-#"sudo systemctl restart mosquitto"
 
-#commands launching to start backend services
-cmd_list = [
+executable_files = [
+        [[],["python weather_api_consult.py"]],
+        [[],["python ddbb_programed_commands.py"]],
+        [[],["python mqtt_listener_to_ddbb.py"]],
+    ]
 
-"python /var/www/html/Domo/backend/ddbb_programed_commands.py",
-"python /var/www/html/Domo/backend/mqtt_listener_to_ddbb.py",	 
+# function to run the script
+def run_script(script_execution_cmd):
+    os.system(script_execution_cmd) #TODO: Print each thread output with thread identifi
+    print("Script finished: ", script_execution_cmd)
 
-"python /var/www/html/Domo/backend/weather_api_consult.py",
-]
+# execute all scripts in parallel
+for program in executable_files:
+    print("Executing: ", program[1])
+    program[0] = threading.Thread(target=run_script, args=(program[1]))
+    program[0].start()
 
-for cmd in cmd_list:
-    subprocess.Popen( ["lxterminal", "-e", cmd])
+for program in executable_files:
+    program[0].join()
 
+print("Scripts launched successfully.")
