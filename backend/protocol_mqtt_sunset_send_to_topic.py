@@ -1,3 +1,4 @@
+import os
 import sys
 import paho.mqtt.client as mqtt
 import time
@@ -16,8 +17,12 @@ def on_message(client, userdata, message):
 topic = sys.argv[1]
 delay = int(sys.argv[2])
 
-broker_address="127.0.0.1"
-client = mqtt.Client("P1") #create new instance
+# MQTT parameters
+broker_address=os.environ.get("MQTT_CONTAINER_NAME", "localhost")
+broker_port=1883
+client_id = f'backend-protocol-sunset-{os.getpid()}'
+
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id) #create new instance
 client.on_message=on_message #attach function to callback
 
 client.connect(broker_address) #connect to broker
