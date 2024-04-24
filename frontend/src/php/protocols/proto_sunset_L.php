@@ -18,5 +18,5 @@ echo "Response: ".$response;
 
 $url = "http://".$external_ip;
 
-//header('Location: '.$url);  
+header('Location: '.$url);  
 ?>
