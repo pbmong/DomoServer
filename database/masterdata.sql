@@ -144,16 +144,16 @@ CREATE TABLE `programed_commands` (
 --
 
 INSERT INTO `programed_commands` (`ID`, `COMMAND`, `DATETIME`, `WEEKDAY`) VALUES
-(1, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 09:00:00', 127),
-(2, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 14:00:00', 127),
-(3, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 18:00:00', 127),
-(4, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 01:00:00', 127),
-(10, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R ON', '****-**-** 08:00:00', 0),
-(11, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/R ON', '****-**-** 07:00:00', 0),
-(20, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/L OFF', '****-**-** 09:00:00', 31),
-(21, 'python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py home/bedroom/L OFF', '****-**-** 00:00:00', 31),
-(100, 'python /var/www/html/Domo/backend/send_email.py \"Domotic Raspbian Service wish you a good day\" \"/var/www/html/Domo/files/test_file.txt\"', '****-**-** 08:00:00', 127),
-(200, 'python /var/www/html/Domo/backend/protocol_mqtt_sunset_send_to_topic.py home/bedroom/L 1', '****-**-** 23:40:00', 127);
+(1, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 09:00:00', 127),
+(2, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 14:00:00', 127),
+(3, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 18:00:00', 127),
+(4, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/R OFF', '****-**-** 01:00:00', 127),
+(10, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/R ON', '****-**-** 08:00:00', 0),
+(11, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/R ON', '****-**-** 07:00:00', 0),
+(20, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/L OFF', '****-**-** 09:00:00', 31),
+(21, 'python mqtt_send_to_topic_and_ddbb.py home/bedroom/L OFF', '****-**-** 00:00:00', 31),
+(100, 'python send_email.py \"Domotic Raspbian Service wish you a good day\" \"/var/www/html/Domo/files/test_file.txt\"', '****-**-** 08:00:00', 127),
+(200, 'python protocol_mqtt_sunset_send_to_topic.py home/bedroom/L 1', '****-**-** 23:40:00', 127);
 
 --
 -- Índices para tablas volcadas

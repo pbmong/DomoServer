@@ -32,7 +32,8 @@ def get_url_data(url):
 
 # Main loop: get weather data from url and update database
 while(True):
-    consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
+    
+    consulting_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') #adjust UTC time to local time
     print("---- Data updating ("+consulting_datetime+") ----")
     weather_response = get_url_data(url)  
     

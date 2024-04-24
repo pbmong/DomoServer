@@ -12,3 +12,9 @@ List of services:
 
  - Original version was designed to be executed in a Raspberry Pi 4 with Raspbian OS (branch: master)
  - New one version has been migrated to Docker container to easier and flexible deployments in Windows systems (branch: feature/docker_implementation)
+
+ Docker migration WIP:
+
+ - FTP camera server.
+ - UI protocols calling.
+ - Backend API commands
