@@ -52,6 +52,9 @@ services:
       TZ: Europe/Madrid
       MQTT_CONTAINER_NAME: mqtt
       DB_CONTAINER_NAME: database
+      FTP_PUBLICHOST: pure-ftpd
+      FTP_USER_NAME: DomoUser
+      FTP_USER_PASS: DomoPass
     expose:
       - "8000" #FastAIP port
     ports:
@@ -78,6 +81,28 @@ services:
       - "80:80" #HTTP port
       - "443:443" #HTTPS port
 
+  ftpd_server:
+    image: stilliard/pure-ftpd
+    container_name: pure-ftpd
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes: # remember to replace /folder_on_disk/ with the path to where you want to store the files on the host machine
+      - "/folder_on_disk/data:/home/username/"
+      - "/folder_on_disk/passwd:/etc/pure-ftpd/passwd"
+# uncomment for ssl/tls, see https://github.com/stilliard/docker-pure-ftpd#tls
+#      - "/folder_on_disk/ssl:/etc/ssl/private/"
+# or ssl/tls with Let's Encrypt (cert and key as two files)
+#      - "/etc/letsencrypt/live/<your_server>/cert.pem:/etc/ssl/private/pure-ftpd-cert.pem"
+#      - "/etc/letsencrypt/live/<your_server>/privkey.pem:/etc/ssl/private/pure-ftpd-key.pem"
+    environment:
+      PUBLICHOST: localhost
+      FTP_USER_NAME: DomoUser
+      FTP_USER_PASS: DomoPass
+      FTP_USER_HOME: /home/username
+# also for ssl/tls:
+#      ADDED_FLAGS: "--tls=2"
+    restart: always
 
 volumes:
   database_data:

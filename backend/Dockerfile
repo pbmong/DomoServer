@@ -18,5 +18,5 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 CMD python -m uvicorn API_backend:app --reload --host 0.0.0.0 --port 80 
 
 
-#ATTENTION: after docker startup, backend launcher needs to be executed manually with the following command:
+# ATTENTION: after docker startup, backend launcher needs to be executed manually with the following command:
 # python 0_backend_launcher.py

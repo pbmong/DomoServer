@@ -16,5 +16,6 @@ List of services:
  Docker migration WIP:
 
  - FTP camera server.
- - UI protocols calling.
  - Backend API commands
+ - Restructure backend in classes
+ - Store project users and passwords securetly
