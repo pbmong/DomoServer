@@ -5,6 +5,7 @@
 
 // IR emitter
 const uint16_t kIrLed = 3;  // ESP01 GPIO pin to use. Recommended: 5 (D3).
+// WARNNING: THIS PIN CORRESPOND TO SERIAL BUS PIN. IT´S NOT POSSIBLE TO DEBUG BY SERIAL PORT AND USO DE IR EMITER AT THE SAME TIME
 
 IRsend irsend(kIrLed);
 
@@ -67,7 +68,7 @@ void setup() {
     //Serial.println("Connecting to WiFi..");
   }
  
-  //Serial.println("Connected to the WiFi network");
+  // Serial.println("Connected to the WiFi network");
   send_subscription(topic);
 }
 

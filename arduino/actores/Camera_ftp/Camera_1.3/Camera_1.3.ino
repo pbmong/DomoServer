@@ -39,7 +39,7 @@
 #define EEPROM_SIZE 1
 // Photos configuration
 #define PHOTOS_NUM        10
-#define PHOTOS_DELAY      2*1000//miliseconds
+#define PHOTOS_DELAY      1*1000//miliseconds
 
 //Wifi
 const char* ssid = "MIWIFI_sCXc_rt";
@@ -47,10 +47,11 @@ const char* password = "dteQNyhF";
 char* server = "192.168.1.187";
 
 //FTP
-char* ftp_user = "pi";
-char* ftp_pass = "raspberry";
-char* ftp_path = "/Downloads";
-char* file_name = "/bedroom_C_";
+char* ftp_user = "DomoUser";
+char* ftp_pass = "DomoPass";
+char* ftp_path = "";
+char* file_name = "/home_bedroom_C_";
+char* test_file_name = "/home_bedroom_C_test";
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", (3600*2), 60000);
@@ -115,7 +116,7 @@ void setup() {
   
   initMemoryCard();
   
-  String file_path = takePhoto(SD_MMC,"/test_file_");
+  String file_path = takePhoto(SD_MMC, test_file_name);
   sendPhoto(SD_MMC, file_path);
   send_publish(cam_topic, "ACK");
   
@@ -341,7 +342,7 @@ void initCamera() {
   config.fb_location = CAMERA_FB_IN_PSRAM;
   
   config.frame_size = FRAMESIZE_UXGA;
-  config.jpeg_quality = 32;
+  config.jpeg_quality = 24;
   config.fb_count = 2;
 
   // camera init

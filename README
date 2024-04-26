@@ -8,14 +8,22 @@ List of services:
  - Database information storage to save system configuration, home state and commands programation.
  - Friendly and symple user interface throw web application for users usage of home services.
 
- This project have to platform versions:
+This project have to platform versions:
 
  - Original version was designed to be executed in a Raspberry Pi 4 with Raspbian OS (branch: master)
  - New one version has been migrated to Docker container to easier and flexible deployments in Windows systems (branch: feature/docker_implementation)
 
- Docker migration WIP:
+Docker migration WIP:
 
- - FTP camera server.
- - Backend API commands
+ - Backend API commands management
  - Restructure backend in classes
  - Store project users and passwords securetly
+
+Propoused features
+
+ - Home cleaning register
+ - Automatic windows
+ - UI access users
+ - Encripted MQTT communications
+ - AtHome and OutHome mode
+ - HTTPS implementation

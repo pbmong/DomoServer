@@ -68,7 +68,7 @@ PubSubClient mqtt_client(espClient);
 //HTTP post
 const String serverName = "192.168.1.187";   // REPLACE WITH YOUR Raspberry Pi IP ADDRESS
 const int serverPort = 80;
-const String serverPath = "/Domo/frontend/php/upload_photo.php";     // The default serverPath should be upload.php
+const String serverPath = "/Domo/php/upload_photo.php";     // The default serverPath should be upload.php
 const String file_name = "bedroom_C_";
 WiFiClient client;
 
