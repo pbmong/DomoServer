@@ -35,12 +35,14 @@ class Emailer:
 sender = Emailer()
 message = EmailMessage()
 
+# Feed mail fields
 message['From'] = GMAIL_USERNAME
 message['To'] = sendTo
 message['Subject'] = "DomoServer"
 body = emailContent
 message.set_content(body)
 
+# Attach files to the email
 for attached_file in attached_files_list:
   attached_file_name = attached_file[(attached_file.find("files/")+6):len(attached_file)]  
   mime_type, _ = mimetypes.guess_type(attached_file)

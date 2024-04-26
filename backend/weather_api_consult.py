@@ -48,6 +48,7 @@ while(True):
                 sunrise = weather_response["pronostico"]["hoy"]["@attributes"]["ocaso"]
 
                 try:
+                    # Update database with weather data
                     query = F"UPDATE home_external SET VALUE = '{current_temperature}', DATETIME = '{consulting_datetime}' WHERE MEANING = 'Temperature'"
                     ddbb.ddbb_update_query(query)
 

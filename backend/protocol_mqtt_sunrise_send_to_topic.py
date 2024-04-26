@@ -22,12 +22,14 @@ broker_address=os.environ.get("MQTT_CONTAINER_NAME", "localhost")
 broker_port=1883
 client_id = f'backend-protocol-sunrise-{os.getpid()}'
 
+# MQTT client setup
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id) #create new instance
 client.on_message=on_message #attach function to callback
 
 client.connect(broker_address) #connect to broker
 print("Publishing message to topic ",topic)
 
+# Publish messages to the topic
 client.publish(topic,"ON")
 ind = range(0,10)
 for i in ind:
@@ -35,7 +37,7 @@ for i in ind:
     time.sleep(delay)
 client.disconnect()
 
-#update ddbb
+# To update database with the new value
 indexes = [x for x, v in enumerate(topic) if v == '/']
 
 ddbb_table = topic[0:indexes[len(indexes)-1]]
@@ -46,6 +48,7 @@ query = F"UPDATE {ddbb_table} SET VALUE = 'ON' WHERE MEANING = '{ddbb_meaning}'"
 print(query)
 ddbb.ddbb_insert_query(query)
 
+# To regist historic database with the new value
 curr_dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 query = F"SELECT MAX(ID) FROM mqtt_historic"
 result = ddbb.ddbb_select_query(query)
