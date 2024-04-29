@@ -28,7 +28,6 @@ services:
       PMA_HOST: database
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-    restart: always
     ports:
       - 8081:80
     restart: always
@@ -43,10 +42,9 @@ services:
     ports:
       - "1883:1883"
     #network_mode: bridge
-    restart: unless-stopped
     links:
       - backend
-    restart: always
+    restart: unless-stopped
   
   backend:
     container_name: backend
