@@ -7,7 +7,6 @@ List of services:
  - MQTT listener service to recive sensors fata and MQTT sender to manage actors.
  - Database information storage to save system configuration, home state and commands programation.
  - Friendly and symple user interface throw web application for users usage of home services.
-
 This project have to platform versions:
 
  - Original version was designed to be executed in a Raspberry Pi 4 with Raspbian OS (branch: master)
