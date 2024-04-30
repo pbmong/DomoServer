@@ -6,30 +6,25 @@ import paho.mqtt.client as mqtt
 from libraries import database_access as ddbb
 
 class Mqtt_publisher:
+
+    # --- CONSTRUCTOR ---
+
     def __init__(self, mqtt_id, mqtt_broker_address, mqtt_broker_port):
-        
+               
+        # MQTT client setup
+        self.__mqtt_id = mqtt_id
         self.__mqtt_broker_address = mqtt_broker_address
         self.__mqtt_broker_port = mqtt_broker_port
 
-        # MQTT client setup
-        self.__client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, mqtt_id) #create new instance
-        self.__client.on_message = self.__on_message #attach function to callback
-
-        
-        pass
-
-    def __on_message(client, userdata, message):
-        print("message received " ,str(message.payload.decode("utf-8")))
-        print("message topic=",message.topic)
-        print("message qos=",message.qos)
-        print("message retain flag=",message.retain)
+    # --- PUBLIC METHODS ---
 
     def publish_message(self, messages_list):
         
         try:
-        # Connecting to broker
-            self.__client.connect(self.__mqtt_broker_address) #connect to broker
-            
+            # Connecting to broker
+            client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,self.__mqtt_id) #create new instance
+            client.connect(self.__mqtt_broker_address, self.__mqtt_broker_port) #connect to broker
+
             # Publish messages to the topic
             for message_struct in messages_list:
 
@@ -41,7 +36,7 @@ class Mqtt_publisher:
 
                 print("Publishing message to topic ", topic, message)
                 
-                self.__client.publish(topic, message)
+                client.publish(topic, message)
 
                 if db_update == True:
                     try:
@@ -71,9 +66,9 @@ class Mqtt_publisher:
                 
                 time.sleep(delay)
 
-            self.__client.disconnect()
-        except:
-            print("Error connecting to broker when publishing message")
+            client.disconnect()
+        except Exception as e:
+            print(f"Error connecting to broker {self.__mqtt_broker_address}:{self.__mqtt_broker_port} when publishing message with id {self.__mqtt_id}: {str(e)}")
 
         
 

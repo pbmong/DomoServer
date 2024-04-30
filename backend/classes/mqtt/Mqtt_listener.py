@@ -19,9 +19,10 @@ class Mqtt_listener:
     ftp_user = os.environ.get("FTP_USER_NAME","username")
     ftp_passwd = os.environ.get("FTP_USER_PASS","mypass")
 
-    # --- CONTRUCTOR ---
+    # --- CONSTRUCTOR ---
     def __init__(self, mqtt_id, mqtt_bloker_address, mqtt_broker_port, topic_list):
         
+        # MQTT client setup
         self.__client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, mqtt_id)
         self.__broker_address = mqtt_bloker_address
         self.__broker_port = mqtt_broker_port
@@ -115,7 +116,7 @@ class Mqtt_listener:
                 ddbb.ddbb_insert_query(query)    
                 
         except Exception as e:
-            print("MQTT message processing error:" + str(e))
+            print(f"MQTT message processing error:{str(e)}")
     
     # --- PUBLIC METHODS ---
 
