@@ -49,7 +49,8 @@ def ddbb_select_query(query):
     
     except mysql.connector.Error as err:
         print(f"DDBB select error: {format(err)} ")
-        
+
+# DDBB function to update data following query command
 def ddbb_update_query(query):
     try: 
         mydb = mysql.connector.connect(
@@ -67,3 +68,22 @@ def ddbb_update_query(query):
     
     except mysql.connector.Error as err:
         print(f"DDBB update error: {format(err)} ")
+
+# DDBB function to delete data following query command
+def ddbb_delete_query(query):
+    try: 
+        mydb = mysql.connector.connect(
+            host = ddbb_host,
+            user = ddbb_user,
+            password = ddbb_password,
+            database = ddbb_database,
+            port = ddbb_port
+        )
+
+        mycursor = mydb.cursor()
+        mycursor.execute(query)
+        mydb.commit()
+
+        print(mycursor.rowcount, "record(s) deleted")
+    except mysql.connector.Error as err:
+        print(f"DDBB delete error: {format(err)} ")

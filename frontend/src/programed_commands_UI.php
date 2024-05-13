@@ -25,7 +25,8 @@
     </form>
     <div><div class='section'>INSERT CMD</div>
     <?php
-    echo "<form class='filter' action='http://".$external_ip."insert_command.php' method='get'>"
+    echo "<form class='filter' action='http://".$external_ip;
+    echo ":".$external_port."/php/insert_command.php' method='get'>";
     ?>
     <select class='filter' name='TOPIC'>
     	<option class='filter' value='home/bedroom/R'>home/bedroom/R</option>
@@ -36,7 +37,7 @@
     	<option class='filter' value='ON'>ON</option>
     	<option class='filter' value='OFF'>OFF</option>
     </select>
-    <input class='datetime_filter' type="text" name="DATETIME" value="YYYY-MM-DD hh:mm:ss" maxlength="19" size="18"> 
+    <input class='datetime_filter' type="text" name="DATETIME" value="YYYY-MM-DD_hh:mm:ss" maxlength="19" size="18"> 
     <DIV>	
 	    M <input class='filter' type="checkbox" name="M" value="M" style="width:60px;height:60px;">
 	    T <input class='filter' type="checkbox" name="T" value="T" style="width:60px;height:60px;">
@@ -66,13 +67,11 @@
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc())
 	    {
-		$offset = strlen("python /var/www/html/Domo/backend/mqtt_send_to_topic_and_ddbb.py");
+		$offset = strlen("python mqtt_send_to_topic_and_ddbb.py");
 		$command = substr($row["COMMAND"], $offset);
 		echo "<tr><td class='logs'> " . $row["ID"] ." |" . $command
 			." | ".$row["DATETIME"]." | ". decbin($row["WEEKDAY"]) ."</td></tr>";
             }
-    } else {
-        echo "0 results";
     }
 
     $conn->close();
@@ -82,7 +81,8 @@
 
     <div><div class='section'>DELETE CMD</div>
     <?php
-    echo "<form class='filter' action='http://".$external_ip."/php/delete_command.php' method='get'>"
+    echo "<form class='filter' action='http://".$external_ip;
+    echo ":".$external_port."/php/delete_command.php' method='get'>";
     ?>
     <input class='filter' type="text" name="ID" value="0" maxlength="3" size="1"> 
     <button class='filter' type="submit">Apply</button></form><br>

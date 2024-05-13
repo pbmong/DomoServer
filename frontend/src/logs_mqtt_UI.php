@@ -36,7 +36,7 @@
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc())
 	    {
-		echo "<option class='filter' value='".$row["TOPIC"]."'>".$row["TOPIC"]."</div>";
+		echo "<option class='filter' value='".$row["TOPIC"]."'>".$row["TOPIC"]."</option>";
             }
     } else {
         echo "0 results";

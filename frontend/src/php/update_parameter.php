@@ -11,10 +11,12 @@ $api_port = getenv("API_BACKEND_PORT")?:"8000";
 echo "GET / ". $_GET['TOPIC'] . " : " . $_GET['VALUE'] . "<br>";
 
 // API call
-$response = file_get_contents('http://'. $external_ip .':'. $api_port .'/update_parameter?topic='. $_GET['TOPIC'] .'&value='. $_GET['VALUE']);
+$execute = 'http://'. $external_ip .':'. $api_port .'/update_parameter?topic='. $_GET['TOPIC'] .'&value='. $_GET['VALUE'];
+$response = file_get_contents($execute);
 
 echo "Response: ".$response;
 
+// Redirect to UI
 $url = "http://".$external_ip;
 
 header('Location: '.$url);  

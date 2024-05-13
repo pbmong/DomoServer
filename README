@@ -11,14 +11,13 @@ List of services:
 This project have to platform versions:
  - Original version was designed to be executed in a Raspberry Pi 4 with Raspbian OS (branch: legacy/Raspberry_2023)
  - New one version has been migrated to Docker container to easier and flexible deployments in Windows systems (branch: master)
-Docker migration WIP:
 
+Docker migration WIP:
  - Backend API commands management
- - Restructure backend in classes
+ - Restructure backend in classes and folders
  - Store project users and passwords securetly
 
 Propoused features
-
  - Home cleaning register
  - Automatic windows
  - UI access users

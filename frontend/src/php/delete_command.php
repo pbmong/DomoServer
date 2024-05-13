@@ -6,23 +6,15 @@ $database = getenv("DB_NAME")?:"DomoServer";
 $external_ip = getenv("EXTERNAL_IP")?:"localhost";
 $external_port = getenv("EXTERNAL_PORT")?:"80";
 $pma_port = getenv("PMA_PORT")?:"8081";
+$api_port = getenv("API_BACKEND_PORT")?:"8000";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// API call
+$execute = 'http://'. $external_ip .':'. $api_port .'/delete_command?command_id='. $_GET['ID'];
+$response = file_get_contents($execute);
 
-$sql = "DELETE FROM `programed_commands` WHERE ID = ".$_GET["ID"];
-echo $sql;
+echo "Response: ".$response;
 
-if ($conn->query($sql) === TRUE) {
-  echo "record deleted successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
+// Redirect to UI
 $url = "http://".$external_ip."/programed_commands_UI.php?";
 
 header('Location: '.$url);  
