@@ -13,7 +13,6 @@ This project have to platform versions:
  - New one version has been migrated to Docker container to easier and flexible deployments in Windows systems (branch: master)
 
 Docker migration WIP:
- - Backend API commands management
  - Restructure backend in classes and folders
  - Store project users and passwords securetly
 
