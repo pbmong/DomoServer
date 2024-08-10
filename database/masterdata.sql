@@ -155,6 +155,19 @@ INSERT INTO `programed_commands` (`ID`, `COMMAND`, `DATETIME`, `WEEKDAY`) VALUES
 (100, 'python send_email.py \"Domotic Raspbian Service wish you a good day\" \"/var/www/html/Domo/files/test_file.txt\"', '****-**-** 08:00:00', 127),
 (200, 'python protocol_mqtt_sunset_send_to_topic.py home/bedroom/L 1', '****-**-** 23:40:00', 127);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cleaning_register`
+--
+
+CREATE TABLE `cleaning_register` (
+  `ID` int NOT NULL,
+  `DATETIME` varchar(128) NOT NULL,
+  `ROOM` varchar(128) NOT NULL,
+  `LEVEL` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 --
 -- Índices para tablas volcadas
 --
