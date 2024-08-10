@@ -49,6 +49,14 @@
     ?>/living_room_UI.php' method="get"><button class='tittle_button' type="submit">LIVING ROOM</button>
     </form>
     <br>
+<!----   CLEANING REGISTER      -->
+    <?php
+        echo "<form action='http://".$external_ip;
+        echo ":".$external_port;
+    ?>/cleaning_register_UI.php' method="get"><button class='tittle_button' type="submit">CLEANING<br />REGISTER</button>
+    </form>
+    <br>
+
     <div><div class='section'>INFO<label></div><br>
 <!----   LOGS     -->
     <?php

@@ -40,7 +40,7 @@ def protocol_sunrise(topic = None):
 @app.get("/insert_command")
 def insert_command(command = None, datetime = None, weekday = None):
     if command is datetime or weekday is None:
-        return "Command para not provided"
+        return "Command parameter not provided"
     else:
         operation = "Insert"
         result = subprocess.run(['python', 'ddbb_commands_management.py', operation, command, datetime, weekday], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -55,5 +55,27 @@ def delete_command(command_id = None):
     else:
         operation = "Delete"
         result = subprocess.run(['python', 'ddbb_commands_management.py', operation, command_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        return f"API response: {result.returncode, result.stdout, result.stderr}"
+    
+# API to insert a cleaning register into the database
+@app.get("/insert_cleaning_register")
+def insert_cleaning_register(datetime = None, room = None, level = None):
+    if room is datetime or level is None:
+        return "Register parameter not provided"
+    else:
+        operation = "Insert"
+        result = subprocess.run(['python', 'ddbb_cleaning_register_management.py', operation, datetime, room, level], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        return f"API response: {result.returncode, result.stdout, result.stderr}"
+    
+# API to delete a cleaning register from the database
+@app.get("/delete_cleaning_register")
+def delete_cleaning_register(register_id = None):
+    if register_id is None:
+        return "Register ID not provided"
+    else:
+        operation = "Delete"
+        result = subprocess.run(['python', 'ddbb_cleaning_register_management.py', operation, register_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         return f"API response: {result.returncode, result.stdout, result.stderr}"

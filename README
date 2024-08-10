@@ -17,7 +17,6 @@ Docker migration WIP:
  - Store project users and passwords securetly
 
 Propoused features
- - Home cleaning register
  - Automatic windows
  - UI access users
  - Encripted MQTT communications
