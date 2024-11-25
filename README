@@ -18,9 +18,10 @@ Docker migration WIP:
 
 Propoused features
  - Automatic windows
- - Luz con sensor de presencia
- - Sensor de puertas abierta y cerrada
+ - Presence light
+ - Open/close door sensor
  - UI access users
  - Encripted MQTT communications
  - AtHome and OutHome mode
  - HTTPS implementation
+ - Refactor of backend main.py into threads
