@@ -12,7 +12,7 @@ def update_parameter(topic = None, value = None, priority:str = api_priority):
     if topic is None or value is None:
         return "Values not provided. Please provide a topic and a value."
     else:
-        result = subprocess.run(['python', 'mqtt_send_to_topic_and_ddbb.py', topic, value, priority], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(['python', 'mqtt_send_to_topic_and_ddbb.py', topic, value, str(priority)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         return f"API response: {result.returncode, result.stdout, result.stderr}"
     
