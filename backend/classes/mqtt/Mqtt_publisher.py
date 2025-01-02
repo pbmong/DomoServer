@@ -31,8 +31,9 @@ class Mqtt_publisher:
                 # Extracting message data [topic, message, delay]
                 topic = message_struct[0]
                 message = message_struct[1]
-                delay = message_struct[2]
-                db_update = message_struct[3]
+                priority = message_struct[2]
+                delay = message_struct[3]
+                db_update = message_struct[4]
 
                 print("Publishing message to topic ", topic, message)
                 
@@ -48,7 +49,7 @@ class Mqtt_publisher:
 
                         # To update database with the new value
                         ddbb_meaning = topic[indexes[len(indexes)-1]+1:len(topic)]
-                        query = F"UPDATE {ddbb_table} SET VALUE = '{message}' WHERE MEANING = '{ddbb_meaning}'"
+                        query = F"UPDATE {ddbb_table} SET VALUE = '{message}', LCP = '{priority}' WHERE MEANING = '{ddbb_meaning}'"
                         print(query)
                         ddbb.ddbb_insert_query(query)
 

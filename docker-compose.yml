@@ -73,7 +73,7 @@ services:
       DB_USER: root
       DB_PASSWORD: root
       DB_NAME: DomoServer
-      EXTERNAL_IP: 192.168.1.155
+      EXTERNAL_IP: 192.168.1.154
       PMA_PORT: 8081
       API_BACKEND_PORT: 8000
     expose:
