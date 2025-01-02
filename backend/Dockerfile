@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 # RUN python -m pip install fastapi
 # RUN python -m pip install uvicorn
 
-CMD python main.py
+CMD [ "python", "main.py"]
