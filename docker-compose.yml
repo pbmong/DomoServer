@@ -46,9 +46,9 @@ services:
       - backend
     restart: unless-stopped
   
-  backend:
-    container_name: backend
-    build: ./backend
+  api:
+    container_name: api
+    build: ./api
     environment:
       TZ: Europe/Madrid
       MQTT_CONTAINER_NAME: mqtt
@@ -60,6 +60,20 @@ services:
       - "8000" #FastAIP port
     ports:
       - "8000:80" #FastAIP port
+    links:
+      - frontend
+    restart: always
+
+  backend:
+    container_name: backend
+    build: ./backend
+    environment:
+      TZ: Europe/Madrid
+      MQTT_CONTAINER_NAME: mqtt
+      DB_CONTAINER_NAME: database
+      FTP_PUBLICHOST: pure-ftpd
+      FTP_USER_NAME: DomoUser
+      FTP_USER_PASS: DomoPass
     links:
       - frontend
     restart: always
