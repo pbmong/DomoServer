@@ -8,7 +8,7 @@ app = FastAPI()
 
 # API to update a parameter in the database and send it to the MQTT broker
 @app.get("/update_parameter")
-def update_parameter(topic = None, value = None, priority = api_priority):
+def update_parameter(topic = None, value = None, priority:str = api_priority):
     if topic is None or value is None:
         return "Values not provided. Please provide a topic and a value."
     else:
